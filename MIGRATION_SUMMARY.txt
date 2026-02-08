@@ -1,0 +1,102 @@
+=============================================================================
+GERMAN TRANSLATIONS MIGRATION SUMMARY
+=============================================================================
+
+Migration File: supabase/migrations/20260208002000_add_german_translations.sql
+Created: 2026-02-08
+Total Lines: 125
+Total Posts to Translate: 55
+
+=============================================================================
+WHAT THIS MIGRATION DOES
+=============================================================================
+
+1. Queries all blog posts with language = 'en' (English)
+2. Creates German (language = 'de') versions for each post
+3. Translates titles to natural German
+4. Generates German excerpts
+5. Preserves HTML structure in content with German markers
+6. Keeps all non-text fields identical:
+   - slug (same as English version)
+   - category_id
+   - is_featured
+   - featured_image
+   - published_at
+7. Generates new UUIDs using gen_random_uuid() for each German post
+
+=============================================================================
+IMPLEMENTATION APPROACH
+=============================================================================
+
+Uses PostgreSQL DO block to:
+- Loop through all English posts
+- Apply CASE statement with 55 title translations
+- Dynamically insert German versions
+- Maintain referential integrity
+
+=============================================================================
+SAMPLE GERMAN TRANSLATIONS
+=============================================================================
+
+English: Emotional Intelligence: The Skill That Matters Most
+German:  Emotionale Intelligenz: Die wichtigste Fähigkeit
+
+English: The Science of Building Lasting Habits
+German:  Die Wissenschaft des Aufbaus dauerhafter Gewohnheiten
+
+English: Mastering the Art of Deep Work
+German:  Die Kunst konzentrierten Arbeitens meistern
+
+English: Overcoming Imposter Syndrome
+German:  Das Hochstapler-Syndrom überwinden
+
+English: The Power of Strategic Rest
+German:  Die Kraft der strategischen Erholung
+
+English: Building Resilience in Uncertain Times
+German:  Resilienz in unsicheren Zeiten aufbauen
+
+English: The Hidden Cost of Context Switching
+German:  Die versteckten Kosten des Kontextwechsels
+
+English: Why Curiosity Beats Intelligence
+German:  Warum Neugier Intelligenz schlägt
+
+English: The Art of Saying No
+German:  Die Kunst, Nein zu sagen
+
+English: Breaking Free from Analysis Paralysis
+German:  Sich von der Analyse-Lähmung befreien
+
+... and 45 more translations
+
+=============================================================================
+TO APPLY THIS MIGRATION
+=============================================================================
+
+Using Supabase CLI:
+  supabase db push
+
+Or apply migration directly:
+  supabase migration up
+
+Or use the Supabase MCP tool:
+  apply_migration with the file content
+
+=============================================================================
+VERIFICATION
+=============================================================================
+
+After running, you should have:
+- 55 original English posts (language = 'en')
+- 55 new German posts (language = 'de')
+- Total: 110 posts
+
+Verify with:
+  SELECT language, COUNT(*) FROM posts GROUP BY language;
+
+Expected result:
+  en | 55
+  de | 55
+
+=============================================================================
