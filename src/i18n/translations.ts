@@ -4,6 +4,7 @@ export interface Translations {
   nav: {
     home: string;
     articles: string;
+    faq: string;
     categories: string;
     searchArticles: string;
     toggleMenu: string;
@@ -113,6 +114,7 @@ const en: Translations = {
   nav: {
     home: 'Home',
     articles: 'Articles',
+    faq: 'FAQ',
     categories: 'Categories',
     searchArticles: 'Search articles',
     toggleMenu: 'Toggle menu',
@@ -222,6 +224,7 @@ const de: Translations = {
   nav: {
     home: 'Startseite',
     articles: 'Artikel',
+    faq: 'FAQ',
     categories: 'Kategorien',
     searchArticles: 'Artikel suchen',
     toggleMenu: 'Menu umschalten',
@@ -331,6 +334,7 @@ const es: Translations = {
   nav: {
     home: 'Inicio',
     articles: 'Articulos',
+    faq: 'Preguntas Frecuentes',
     categories: 'Categorias',
     searchArticles: 'Buscar articulos',
     toggleMenu: 'Alternar menu',

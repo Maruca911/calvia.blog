@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import Category from './pages/Category';
+import FAQ from './pages/FAQ';
 import { useLanguage } from './i18n/LanguageContext';
 
 function NotFound() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/category/:slug" element={<Category />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

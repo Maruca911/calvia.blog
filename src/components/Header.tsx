@@ -105,6 +105,12 @@ export default function Header({ onSearchClick }: HeaderProps) {
             >
               {t.nav.articles}
             </Link>
+            <Link
+              to="/faq"
+              className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-teal-600 rounded-lg hover:bg-gray-50 transition"
+            >
+              {t.nav.faq}
+            </Link>
 
             <div ref={dropdownRef} className="relative">
               <button
@@ -233,6 +239,9 @@ export default function Header({ onSearchClick }: HeaderProps) {
               </Link>
               <Link to="/blog" className="px-3 py-2.5 text-gray-800 font-medium hover:bg-gray-50 rounded-lg">
                 {t.nav.allArticles}
+              </Link>
+              <Link to="/faq" className="px-3 py-2.5 text-gray-800 font-medium hover:bg-gray-50 rounded-lg">
+                {t.nav.faq}
               </Link>
               {categoryGroups.map((group) => (
                 <div key={group.title}>

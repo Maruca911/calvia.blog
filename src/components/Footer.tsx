@@ -75,9 +75,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500 text-xs space-y-2">
+        <div className="border-t border-gray-800 mt-10 pt-6">
+          <div className="flex justify-center gap-6 mb-4">
+            <Link to="/blog" className="text-sm text-gray-400 hover:text-teal-400 transition">
+              {t.nav.articles}
+            </Link>
+            <Link to="/faq" className="text-sm text-gray-400 hover:text-teal-400 transition">
+              {t.nav.faq}
+            </Link>
+          </div>
+          <div className="text-center text-gray-500 text-xs space-y-2">
           <p className="text-gray-600 italic">{t.footer.aiDisclaimer}</p>
           <p>&copy; {new Date().getFullYear()} Calvia.blog. {t.footer.allRights}</p>
+          </div>
         </div>
       </div>
     </footer>
