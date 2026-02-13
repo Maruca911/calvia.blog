@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Search, ChevronRight, AlertTriangle } from 'lucide-react';
 import { faqSections, FaqItem } from '../data/faqData';
 import FaqAccordion from '../components/FaqAccordion';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const SECTION_ICONS = ['plane', 'compass', 'bed', 'utensils', 'car'] as const;
 
@@ -20,6 +21,7 @@ function getAllFaqs(): { item: FaqItem; sectionIndex: number; localIndex: number
 }
 
 export default function FAQ() {
+  const { t } = useLanguage();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeSection, setActiveSection] = useState<string | null>(null);
 
@@ -64,21 +66,21 @@ export default function FAQ() {
   return (
     <>
       <Helmet>
-        <title>Mallorca FAQ - 100 Most Asked Questions About Mallorca | Calvia.blog</title>
+        <title>{t.faq.title} - 100 Most Asked Questions About Mallorca | Calvia.blog</title>
         <meta
           name="description"
-          content="Find answers to the 100 most frequently asked questions about Mallorca. Travel planning, beaches, hotels, food, weather, transport, and expat life -- everything you need to know."
+          content={t.faq.description}
         />
         <link rel="canonical" href="https://calvia.blog/faq" />
-        <meta property="og:title" content="Mallorca FAQ - 100 Most Asked Questions About Mallorca" />
+        <meta property="og:title" content={`${t.faq.title} - 100 Most Asked Questions About Mallorca`} />
         <meta
           property="og:description"
-          content="Comprehensive answers to 100 frequently asked questions about visiting, living in, and exploring Mallorca."
+          content={t.faq.description}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://calvia.blog/faq" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Mallorca FAQ - 100 Questions Answered" />
+        <meta name="twitter:title" content={`${t.faq.title} - 100 Questions Answered`} />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
@@ -93,10 +95,10 @@ export default function FAQ() {
             </nav>
 
             <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-              Mallorca FAQ
+              {t.faq.title}
             </h1>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl leading-relaxed">
-              Answers to the 100 most commonly asked questions about visiting, exploring, and living in Mallorca. From travel planning to local tips.
+              {t.faq.description}
             </p>
 
             <div className="relative max-w-lg">
@@ -105,7 +107,7 @@ export default function FAQ() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search questions..."
+                placeholder={t.faq.searchPlaceholder}
                 className="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
               />
               {searchQuery && (
@@ -142,7 +144,7 @@ export default function FAQ() {
         {filteredFaqs ? (
           <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
             <p className="text-sm text-gray-500 mb-6">
-              {filteredFaqs.length} result{filteredFaqs.length !== 1 ? 's' : ''} for "{searchQuery}"
+              {filteredFaqs.length} {filteredFaqs.length === 1 ? t.faq.results : `${t.faq.results}s`} for "{searchQuery}"
             </p>
             {filteredFaqs.length > 0 ? (
               <div className="bg-white rounded-xl border border-gray-100 divide-y divide-gray-100">
@@ -152,12 +154,12 @@ export default function FAQ() {
               </div>
             ) : (
               <div className="text-center py-12">
-                <p className="text-gray-500">No matching questions found. Try a different search term.</p>
+                <p className="text-gray-500">{t.faq.noResults}</p>
                 <button
                   onClick={() => setSearchQuery('')}
                   className="mt-3 text-sm text-teal-600 hover:text-teal-700 font-medium"
                 >
-                  View all questions
+                  {t.faq.viewAllQuestions}
                 </button>
               </div>
             )}
@@ -172,7 +174,7 @@ export default function FAQ() {
                 <section key={section.id} id={section.id} className="scroll-mt-24">
                   <div className="flex items-center gap-3 mb-6">
                     <h2 className="font-serif text-xl sm:text-2xl font-bold text-gray-900">
-                      {section.title}
+                      {t.faq[section.id as keyof typeof t.faq] || section.title}
                     </h2>
                     <span className="text-xs font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-md">
                       {section.faqs.length}
@@ -198,31 +200,15 @@ export default function FAQ() {
             <div className="flex items-start gap-3 p-5 bg-amber-50 border border-amber-200 rounded-xl">
               <AlertTriangle size={20} className="text-amber-600 flex-shrink-0 mt-0.5" />
               <div className="text-sm text-amber-900 leading-relaxed">
-                <p className="font-semibold mb-2">Legal Disclaimer</p>
+                <p className="font-semibold mb-2">{t.faq.disclaimer}</p>
                 <p>
-                  The information provided on this page is for general guidance and informational purposes only. It
-                  should not be considered legal, medical, financial, or professional advice. While we strive to keep
-                  information accurate and up to date, we make no representations or warranties of any kind about the
-                  completeness, accuracy, reliability, or suitability of the information provided.
+                  {t.faq.disclaimerWarning}
                 </p>
                 <p className="mt-2">
-                  Travel regulations, visa requirements, health guidelines, and local laws can change at any time.
-                  Always verify current requirements through official government sources such as the{' '}
-                  <a
-                    href="https://www.exteriores.gob.es/en/Paginas/index.aspx"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-amber-700 underline hover:text-amber-800"
-                  >
-                    Spanish Ministry of Foreign Affairs
-                  </a>
-                  , your country's consular services, or qualified professionals before making travel or relocation
-                  decisions. Property, immigration, and financial decisions should always be made with the guidance of
-                  qualified legal and financial advisors.
+                  {t.faq.disclaimerVerify}
                 </p>
                 <p className="mt-2 text-amber-700 italic">
-                  All content on Calvia.blog is generated by artificial intelligence. Information may not be fully
-                  accurate or current.
+                  {t.faq.disclaimerAI}
                 </p>
               </div>
             </div>
@@ -234,19 +220,19 @@ export default function FAQ() {
                   to="/blog"
                   className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition"
                 >
-                  Browse All Articles
+                  {t.faq.browseAllArticles}
                 </Link>
                 <Link
                   to="/category/travel-adventure"
                   className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-200 hover:border-teal-200 hover:text-teal-600 transition"
                 >
-                  Travel & Adventure
+                  {t.faq.travelAdventure}
                 </Link>
                 <Link
                   to="/category/calvia-local-guide"
                   className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded-lg border border-gray-200 hover:border-teal-200 hover:text-teal-600 transition"
                 >
-                  Calvia Local Guide
+                  {t.faq.calviaLocalGuide}
                 </Link>
               </div>
             </div>
